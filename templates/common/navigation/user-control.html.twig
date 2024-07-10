@@ -1,0 +1,8 @@
+{% block ecommerce_navigation_user_control %}
+    {% if app.user %}
+        <div class="ecommerce-user-control">
+            <p>Logged in as {{ app.user.userIdentifier }}</p>
+            <p><a href="{{ path('app.administration.logout') }}">Log out</a></p>
+        </div>
+    {% endif %}
+{% endblock %}

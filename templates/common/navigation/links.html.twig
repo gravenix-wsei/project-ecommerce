@@ -1,0 +1,15 @@
+{% block ecommerce_navigation_links %}
+{% if app.user %}
+    <div class="ecommerce-navigation-links">
+        <ul class="ecommerce-navigation--list">
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminDashboardController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.administration.dashboard') }}"
+                >Dashboard</a>
+            </li>
+        </ul>
+    </div>
+{% endif %}
+{% endblock %}
+

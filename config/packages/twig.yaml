@@ -2,6 +2,7 @@ twig:
     file_name_pattern: '*.twig'
     paths:
         'templates': 'project-ecommerce'
+        'templates/common/': 'ecommerce-common'
 
 when@test:
     twig:

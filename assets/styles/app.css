@@ -1,3 +1,20 @@
-body {
-    background-color: skyblue;
+@import url("common/navigation.css");
+
+:root {
+    --font-main-color: #000;
 }
+
+body {
+    margin: 0;
+    display: block;
+    width: 100vw;
+    background-color: #E8E8E8;
+    & > .ecommerce-body {
+        min-height: 100vh;
+    }
+
+    & .ecommerce-content-wrapper {
+        padding: 8px;
+    }
+}
+

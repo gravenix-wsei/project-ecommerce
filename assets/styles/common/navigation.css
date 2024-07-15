@@ -1,6 +1,7 @@
 :root {
     --navigation-main-color: #DFDDDD;
     --navigation-arrow-color: #477660;
+    --navigation-arrow-hover-color: #000;
     --navigation-menu-size: 32px;
 }
 
@@ -23,8 +24,12 @@
                     padding: 0 0 0 16px;
                     font-size: var(--navigation-menu-size);
                     position: relative;
+                    transition: all 150ms ease-out;
                     & > a.ecommerce-navigation--element-link {
                         text-decoration: none;
+                        &:link {
+                            color: var(--font-main-color);
+                        }
                         &:visited {
                             color: var(--font-main-color);
                             font-style: normal;
@@ -45,6 +50,16 @@
                     }
                     &:hover {
                         padding: 0 0 0 32px;
+                        &::before {
+                            content: '\A';
+                            border-style: solid;
+                            border-width: 10px 16px 10px 0;
+                            border-color: transparent var(--navigation-arrow-hover-color) transparent transparent;
+                            position: absolute;
+                            left: 8px;
+                            top: 8px;
+                            transform: rotate(180deg);
+                        }
                         &::after {
                             content: '\A';
                             border-style: solid;

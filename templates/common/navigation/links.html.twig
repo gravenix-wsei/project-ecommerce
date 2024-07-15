@@ -9,6 +9,12 @@
                    href="{{ path('app.administration.dashboard') }}"
                 >Dashboard</a>
             </li>
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminUserController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.users.index') }}"
+                >Users</a>
+            </li>
             {% endblock %}
         </ul>
     </div>

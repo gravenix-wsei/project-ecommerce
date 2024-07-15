@@ -34,7 +34,7 @@ class AdministrationUser implements UserInterface, PasswordAuthenticatedUserInte
     #[ORM\Column]
     private ?string $password = null;
 
-    public function getId(): ?int
+    public function getId(): ?Uuid
     {
         return $this->id;
     }

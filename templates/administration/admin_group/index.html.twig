@@ -1,0 +1,37 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}Group index{% endblock %}
+
+{% block body %}
+    <h1>Group index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>User count</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for group in groups %}
+            <tr>
+                <td>{{ group.id }}</td>
+                <td>{{ group.name }}</td>
+                <td>{{ group.users|length }}</td>
+                <td>
+                    <a href="{{ path('app.admin.group.show', {'id': group.id}) }}">show</a>
+                    <a href="{{ path('app.admin.group.edit', {'id': group.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app.admin.group.new') }}">Create new</a>
+{% endblock %}

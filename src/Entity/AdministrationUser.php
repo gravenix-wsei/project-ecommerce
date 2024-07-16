@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\AdministrationUserRepository;
+use App\System\Administration\Permission\PrivilegesServiceInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -33,6 +36,17 @@ class AdministrationUser implements UserInterface, PasswordAuthenticatedUserInte
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, Group>
+     */
+    #[ORM\ManyToMany(targetEntity: Group::class, mappedBy: 'users')]
+    private Collection $groups;
+
+    public function __construct()
+    {
+        $this->groups = new ArrayCollection();
+    }
 
     public function getId(): ?Uuid
     {
@@ -71,8 +85,20 @@ class AdministrationUser implements UserInterface, PasswordAuthenticatedUserInte
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
+        $roles[] = PrivilegesServiceInterface::ROLE_ADMIN;
+        if ($this->isAdmin()) {
+            $roles[] = PrivilegesServiceInterface::ROLE_ROOT_ADMIN;
+        }
+        foreach ($this->groups as $group) {
+            $roles = \array_merge($roles, $group->getPrivileges());
+        }
 
         return array_unique($roles);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->username === 'admin';
     }
 
     /**
@@ -107,5 +133,32 @@ class AdministrationUser implements UserInterface, PasswordAuthenticatedUserInte
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, Group>
+     */
+    public function getGroups(): Collection
+    {
+        return $this->groups;
+    }
+
+    public function addGroup(Group $group): static
+    {
+        if (!$this->groups->contains($group)) {
+            $this->groups->add($group);
+            $group->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroup(Group $group): static
+    {
+        if ($this->groups->removeElement($group)) {
+            $group->removeUser($this);
+        }
+
+        return $this;
     }
 }

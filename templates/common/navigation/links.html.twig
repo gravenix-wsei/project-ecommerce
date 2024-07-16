@@ -9,6 +9,14 @@
                    href="{{ path('app.administration.dashboard') }}"
                 >Dashboard</a>
             </li>
+            {% if ecommerceHasPermission('ROLE_ADMIN_CATEGORIES') %}
+                <li class="ecommerce-navigation--element
+                   {% if controller_name == 'AdminCategoryController' %} selected {% endif %}">
+                    <a class="ecommerce-navigation--element-link"
+                       href="{{ path('app.admin.category.index') }}"
+                    >Categories</a>
+                </li>
+            {% endif %}
             {% if ecommerceHasPermission('ROLE_ADMIN_USERS') %}
             <li class="ecommerce-navigation--element
                        {% if controller_name == 'AdminUserController' %} selected {% endif %}">

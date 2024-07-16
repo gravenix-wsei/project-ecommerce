@@ -7,6 +7,7 @@ interface PrivilegesServiceInterface
     public const ALL_PRIVILEGES = [
         'User management' => 'ROLE_ADMIN_USERS',
         'Group management' => 'ROLE_ADMIN_GROUPS',
+        'Category management' => 'ROLE_ADMIN_CATEGORIES',
     ];
     public const ROLE_ROOT_ADMIN = 'ROLE_ROOT_ADMINISTRATOR';
     public const ROLE_ADMIN = 'ROLE_ADMINISTRATOR';

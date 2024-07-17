@@ -38,9 +38,16 @@ class Category
     #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parentCategory')]
     private Collection $childCategories;
 
+    /**
+     * @var Collection<int, Product>
+     */
+    #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
+    private Collection $products;
+
     public function __construct()
     {
         $this->childCategories = new ArrayCollection();
+        $this->products = new ArrayCollection();
     }
 
     public function getId(): ?Uuid
@@ -121,6 +128,33 @@ class Category
             if ($parentCategory->getParentCategory() === $this) {
                 $parentCategory->setParentCategory(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): static
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->addCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): static
+    {
+        if ($this->products->removeElement($product)) {
+            $product->removeCategory($this);
         }
 
         return $this;

@@ -29,8 +29,7 @@ final class Version20240709191953CreateAdminUser extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('DELETE FROM administration_user WHERE username = :adminUser', ['adminUser' => 'admin']);
     }
 
     private function getHashedPassword(string $plainPassword): string

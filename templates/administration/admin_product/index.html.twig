@@ -1,0 +1,47 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <h1>Product index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Description</th>
+                <th>PriceNet</th>
+                <th>PriceGross</th>
+                <th>IsPhysical</th>
+                <th>Categories</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td>{{ product.id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.priceNet }}</td>
+                <td>{{ product.priceGross }}</td>
+                <td>{{ product.isPhysical ? 'Yes' : 'No' }}</td>
+                <td>{{ product.categories|map(category => category.name)|join(', ') }}</td>
+                <td>
+                    <a href="{{ path('app.admin.product.show', {'id': product.id}) }}">show</a>
+                    <a href="{{ path('app.admin.product.edit', {'id': product.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app.admin.product.new') }}">Create new</a>
+{% endblock %}

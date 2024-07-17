@@ -1,0 +1,73 @@
+{% block ecommerce_navigation_links %}
+{% if app.user %}
+    <div class="ecommerce-navigation-links">
+        <ul class="ecommerce-navigation--list">
+            {% block ecommerce_navigation_links__elements %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminDashboardController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.administration.dashboard') }}"
+                >Dashboard</a>
+            </li>
+            {% if ecommerceHasPermission('ROLE_ADMIN_CATEGORIES') %}
+                <li class="ecommerce-navigation--element
+                   {% if controller_name == 'AdminCategoryController' %} selected {% endif %}">
+                    <a class="ecommerce-navigation--element-link"
+                       href="{{ path('app.admin.category.index') }}"
+                    >Categories</a>
+                </li>
+            {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_PRODUCTS') %}
+                <li class="ecommerce-navigation--element
+               {% if controller_name == 'AdminProductController' %} selected {% endif %}">
+                    <a class="ecommerce-navigation--element-link"
+                       href="{{ path('app.admin.product.index') }}"
+                    >Products</a>
+                </li>
+            {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_PROMOTIONS') %}
+                <li class="ecommerce-navigation--element
+               {% if controller_name == 'AdminPromotionController' %} selected {% endif %}">
+                    <a class="ecommerce-navigation--element-link"
+                       href="{{ path('app.admin.promotion.index') }}"
+                    >Promotions</a>
+                </li>
+            {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_CUSTOMERS') %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminCustomerController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.customer.index') }}"
+                >Customers</a>
+            </li>
+            {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_USERS') %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminUserController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.users.index') }}"
+                >Users</a>
+            </li>
+            {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_GROUPS') %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminGroupController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.group.index') }}"
+                >Groups</a>
+            </li>
+            {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_SETTINGS') %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminStoreSettingsController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.settings.index') }}"
+                >Settings</a>
+            </li>
+            {% endif %}
+            {% endblock %}
+        </ul>
+    </div>
+{% endif %}
+{% endblock %}
+

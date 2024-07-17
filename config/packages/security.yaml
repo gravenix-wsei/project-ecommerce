@@ -9,6 +9,11 @@ security:
             entity:
                 class: App\Entity\AdministrationUser
                 property: username
+        # used to reload user from session & other features (e.g. switch_user)
+        customer_user_provider:
+            entity:
+                class: App\Entity\Customer
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -20,21 +25,41 @@ security:
                 login_path: app.administration.login
                 check_path: app.administration.login
                 enable_csrf: true
+                default_target_path: app.administration.dashboard
+                always_use_default_target_path: true
             logout:
                 path: app.administration.logout
-                # where to redirect after logout
-                # target: app_any_route
+                target: app.administration.login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
+    role_hierarchy:
+        ROLE_ADMINISTRATOR: [ROLE_USER]
+        ROLE_ROOT_ADMINISTRATOR:
+            - ROLE_ADMINISTRATOR
+            - ROLE_ADMIN_USERS
+            - ROLE_ADMIN_GROUPS
+            - ROLE_ADMIN_CATEGORIES
+            - ROLE_ADMIN_PRODUCTS
+            - ROLE_ADMIN_PROMOTIONS
+            - ROLE_ADMIN_CUSTOMERS
+            - ROLE_ADMIN_SETTINGS
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin/login$, roles: PUBLIC_ACCESS }
+        - { path: ^/admin/user, roles: ROLE_ADMIN_USERS }
+        - { path: ^/admin/group, roles: ROLE_ADMIN_GROUPS }
+        - { path: ^/admin/category, roles: ROLE_ADMIN_CATEGORIES }
+        - { path: ^/admin/product, roles: ROLE_ADMIN_PRODUCTS }
+        - { path: ^/admin/promotion, roles: ROLE_ADMIN_PROMOTIONS }
+        - { path: ^/admin/customer, roles: ROLE_ADMIN_CUSTOMERS }
+        - { path: ^/admin/settings, roles: ROLE_ADMIN_SETTINGS }
+        - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

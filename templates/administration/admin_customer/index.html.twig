@@ -1,0 +1,47 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}Customer index{% endblock %}
+
+{% block body %}
+    <h1>Customer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Street</th>
+                <th>Zipcode</th>
+                <th>City</th>
+                <th>Country</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.firstName }}</td>
+                <td>{{ customer.lastName }}</td>
+                <td>{{ customer.street }}</td>
+                <td>{{ customer.zipcode }}</td>
+                <td>{{ customer.city }}</td>
+                <td>{{ customer.country }}</td>
+                <td>
+                    <a href="{{ path('app.admin.customer.show', {'id': customer.id}) }}">show</a>
+                    <a href="{{ path('app.admin.customer.edit', {'id': customer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="10">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app.admin.customer.new') }}">Create new</a>
+{% endblock %}

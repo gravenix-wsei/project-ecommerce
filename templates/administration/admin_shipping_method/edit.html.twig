@@ -1,0 +1,13 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}Edit ShippingMethod{% endblock %}
+
+{% block body %}
+    <h1>Edit ShippingMethod</h1>
+
+    {{ include('@project-ecommerce/administration/admin_shipping_method/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app.admin.shipping-method.index') }}">back to list</a>
+
+    {{ include('@project-ecommerce/administration/admin_shipping_method/_delete_form.html.twig') }}
+{% endblock %}

@@ -10,7 +10,8 @@ interface PrivilegesServiceInterface
         'Category management' => 'ROLE_ADMIN_CATEGORIES',
         'Product management' => 'ROLE_ADMIN_PRODUCTS',
         'Promotion management' => 'ROLE_ADMIN_PROMOTIONS',
-        'Customer management' => 'ROLE_ADMIN_CUSTOMERS'
+        'Customer management' => 'ROLE_ADMIN_CUSTOMERS',
+        'Shipping methods management' => 'ROLE_ADMIN_SHIPPING_METHODS',
     ];
     public const ROLE_ROOT_ADMIN = 'ROLE_ROOT_ADMINISTRATOR';
     public const ROLE_ADMIN = 'ROLE_ADMINISTRATOR';

@@ -17,6 +17,14 @@
                     >Categories</a>
                 </li>
             {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_PRODUCTS') %}
+                <li class="ecommerce-navigation--element
+               {% if controller_name == 'AdminProductController' %} selected {% endif %}">
+                    <a class="ecommerce-navigation--element-link"
+                       href="{{ path('app.admin.product.index') }}"
+                    >Products</a>
+                </li>
+            {% endif %}
             {% if ecommerceHasPermission('ROLE_ADMIN_USERS') %}
             <li class="ecommerce-navigation--element
                        {% if controller_name == 'AdminUserController' %} selected {% endif %}">

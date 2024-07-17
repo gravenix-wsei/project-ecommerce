@@ -1,0 +1,50 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+    <h1>Product</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ product.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ product.name }}</td>
+            </tr>
+            <tr>
+                <th>Stock</th>
+                <td>{{ product.stock }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ product.description }}</td>
+            </tr>
+            <tr>
+                <th>PriceNet</th>
+                <td>{{ product.priceNet }}</td>
+            </tr>
+            <tr>
+                <th>PriceGross</th>
+                <td>{{ product.priceGross }}</td>
+            </tr>
+            <tr>
+                <th>IsPhysical</th>
+                <td>{{ product.isPhysical ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Categories</th>
+                <td>{{ product.categories|map(category => category.name)|join(', ') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app.admin.product.index') }}">back to list</a>
+
+    <a href="{{ path('app.admin.product.edit', {'id': product.id}) }}">edit</a>
+
+    {{ include('@project-ecommerce/administration/admin_product/_delete_form.html.twig') }}
+{% endblock %}

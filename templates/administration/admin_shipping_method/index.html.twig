@@ -1,0 +1,39 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}ShippingMethod index{% endblock %}
+
+{% block body %}
+    <h1>ShippingMethod index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>PriceNet</th>
+                <th>PriceGross</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shipping_method in shipping_methods %}
+            <tr>
+                <td>{{ shipping_method.id }}</td>
+                <td>{{ shipping_method.name }}</td>
+                <td>{{ shipping_method.priceNet }}</td>
+                <td>{{ shipping_method.priceGross }}</td>
+                <td>
+                    <a href="{{ path('app.admin.shipping-method.show', {'id': shipping_method.id}) }}">show</a>
+                    <a href="{{ path('app.admin.shipping-method.edit', {'id': shipping_method.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app.admin.shipping-method.new') }}">Create new</a>
+{% endblock %}

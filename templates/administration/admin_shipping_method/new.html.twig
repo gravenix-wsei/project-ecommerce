@@ -1,0 +1,11 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}New ShippingMethod{% endblock %}
+
+{% block body %}
+    <h1>Create new ShippingMethod</h1>
+
+    {{ include('@project-ecommerce/administration/admin_shipping_method/_form.html.twig') }}
+
+    <a href="{{ path('app.admin.shipping-method.index') }}">back to list</a>
+{% endblock %}

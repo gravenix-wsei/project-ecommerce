@@ -1,0 +1,24 @@
+{% extends '@project-ecommerce/base.html.twig' %}
+
+{% block title %}Store settings{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper" data-turbo="false">
+    <h1>Store settings</h1>
+
+    {% block store_settings %}
+    {% block store_settings_flashes %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% endblock %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+        <button class="btn">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+    {% endblock %}
+</div>
+{% endblock %}

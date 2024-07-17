@@ -57,6 +57,14 @@
                 >Groups</a>
             </li>
             {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_SETTINGS') %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminStoreSettingsController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.settings.index') }}"
+                >Settings</a>
+            </li>
+            {% endif %}
             {% endblock %}
         </ul>
     </div>

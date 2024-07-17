@@ -33,6 +33,14 @@
                     >Promotions</a>
                 </li>
             {% endif %}
+            {% if ecommerceHasPermission('ROLE_ADMIN_CUSTOMERS') %}
+            <li class="ecommerce-navigation--element
+                       {% if controller_name == 'AdminCustomerController' %} selected {% endif %}">
+                <a class="ecommerce-navigation--element-link"
+                   href="{{ path('app.admin.customer.index') }}"
+                >Customers</a>
+            </li>
+            {% endif %}
             {% if ecommerceHasPermission('ROLE_ADMIN_USERS') %}
             <li class="ecommerce-navigation--element
                        {% if controller_name == 'AdminUserController' %} selected {% endif %}">

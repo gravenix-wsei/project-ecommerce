@@ -16,5 +16,11 @@ body {
     & .ecommerce-content-wrapper {
         padding: 8px;
     }
+
+    .alert {
+        &.alert-success {
+            color: #477660;
+        }
+    }
 }
 

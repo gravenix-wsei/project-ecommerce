@@ -46,6 +46,7 @@ security:
             - ROLE_ADMIN_PRODUCTS
             - ROLE_ADMIN_PROMOTIONS
             - ROLE_ADMIN_CUSTOMERS
+            - ROLE_ADMIN_SETTINGS
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
@@ -57,6 +58,7 @@ security:
         - { path: ^/admin/product, roles: ROLE_ADMIN_PRODUCTS }
         - { path: ^/admin/promotion, roles: ROLE_ADMIN_PROMOTIONS }
         - { path: ^/admin/customer, roles: ROLE_ADMIN_CUSTOMERS }
+        - { path: ^/admin/settings, roles: ROLE_ADMIN_SETTINGS }
         - { path: ^/admin, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/profile, roles: ROLE_USER }
 

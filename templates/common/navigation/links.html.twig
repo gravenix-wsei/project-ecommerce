@@ -63,6 +63,7 @@
                 <a class="ecommerce-navigation--element-link"
                    href="{{ path('app.admin.shipping-method.index') }}"
                 >Shipping Methods</a>
+            {% endif %}
             {% if ecommerceHasPermission('ROLE_ADMIN_SETTINGS') %}
             <li class="ecommerce-navigation--element
                        {% if controller_name == 'AdminStoreSettingsController' %} selected {% endif %}">

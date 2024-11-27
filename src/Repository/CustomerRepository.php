@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Customer;
+use App\Request\DTO\UserRegister;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -31,6 +32,24 @@ class CustomerRepository extends ServiceEntityRepository implements PasswordUpgr
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function registerCustomer(UserRegister $data): Customer
+    {
+        $customer = new Customer();
+        $customer->setEmail($data->email)
+            ->setPassword($data->password)
+            ->setFirstName($data->firstName)
+            ->setLastName($data->lastName)
+            ->setStreet($data->street)
+            ->setZipcode($data->zipcode)
+            ->setCity($data->city)
+            ->setCountry($data->country);
+
+        $this->getEntityManager()->persist($customer);
+        $this->getEntityManager()->flush();
+
+        return $customer;
     }
 
     //    /**

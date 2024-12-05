@@ -57,6 +57,22 @@ class CustomerRepository extends ServiceEntityRepository implements PasswordUpgr
         return $customer;
     }
 
+    public function loginCustomer(string $email, #[\SensitiveParameter] string $password): ?Customer
+    {
+        $customer = $this->createQueryBuilder('c')
+            ->where('c.email = :email')
+            ->setParameter('email', $email)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if (!$customer) {
+            return null;
+        }
+
+        return $this->passwordHasher->isPasswordValid($customer, $password) ? $customer : null;
+    }
+
     //    /**
     //     * @return Customer[] Returns an array of Customer objects
     //     */

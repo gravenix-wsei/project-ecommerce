@@ -6,6 +6,7 @@ use App\Entity\Customer;
 use App\Request\DTO\UserRegister;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
@@ -15,7 +16,10 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class CustomerRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(
+        ManagerRegistry $registry,
+        private readonly UserPasswordHasherInterface $passwordHasher
+    )
     {
         parent::__construct($registry, Customer::class);
     }
@@ -37,8 +41,9 @@ class CustomerRepository extends ServiceEntityRepository implements PasswordUpgr
     public function registerCustomer(UserRegister $data): Customer
     {
         $customer = new Customer();
+        $hashedPassword = $this->passwordHasher->hashPassword($customer, $data->password);
         $customer->setEmail($data->email)
-            ->setPassword($data->password)
+            ->setPassword($hashedPassword)
             ->setFirstName($data->firstName)
             ->setLastName($data->lastName)
             ->setStreet($data->street)

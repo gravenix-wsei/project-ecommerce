@@ -25,7 +25,7 @@ class RegisterController extends AbstractController
     ): Response
     {
         $customer = $this->customerRepository->registerCustomer($userRegister);
-        // TODO save customer in session
-        return new JsonResponse(['ok' => true]);
+
+        return new JsonResponse(['status' => 'ok']);
     }
 }
